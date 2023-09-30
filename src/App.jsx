@@ -3,11 +3,7 @@
 import { TodoListItem } from "./TodoListItem";
 
 function App() {
-  return (
-    <div>
-      <TodoListItem name="Beella Girl" isComplete />
-    </div>
-  );
+  return <TodoListItem isComplete>List Item 1</TodoListItem>;
 }
 
 export default App;
