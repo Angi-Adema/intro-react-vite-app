@@ -6,8 +6,3 @@ export function TodoListItem({ children, isComplete }) {
     </label>
   );
 }
-
-// <label>
-//   <input type="checkbox" checked={isComplete} />
-//   {children}
-// </label>

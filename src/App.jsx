@@ -3,7 +3,7 @@
 import { TodoListItem } from "./TodoListItem";
 
 function App() {
-  return <TodoListItem isComplete>List Item #1</TodoListItem>;
+  return <TodoListItem isComplete>First List Item</TodoListItem>;
 }
 
 export default App;
