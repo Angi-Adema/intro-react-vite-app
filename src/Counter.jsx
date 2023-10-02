@@ -4,10 +4,10 @@ export function Counter() {
   const [counter, setCounter] = useState(0);
 
   //   function handleClick() {
-  //     setCount(count + 1);
+  //     setCounter(counter + 1);
   //   }
 
-  //   setCount((currentCount) => {
+  //   setCounter((currentCount) => {
   //     return currentCount + 1;
   //   });
 
