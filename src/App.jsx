@@ -64,6 +64,16 @@ function App() {
     });
   }
 
+  function addLetterToIndex(letter, index) {
+    setArray((existingArray) => {
+      return [
+        ...existingArray.slice(0, index),
+        letter,
+        ...existingArray.slice(index),
+      ];
+    });
+  }
+
   return (
     <div>
       <button onClick={removeFirst}>Remove First Index</button>
@@ -86,6 +96,8 @@ function App() {
       <button onClick={() => addInputValue(value)}>
         Add Input to Start of Array
       </button>
+      <br />
+      <button onClick={() => addLetterToIndex("Q", 1)}>Add Q at index 1</button>
       <br />
       <br />
       {array.join(", ")}
