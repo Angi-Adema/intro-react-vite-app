@@ -34,27 +34,37 @@
 //     setArray([]);
 //   }
 
-// function resetArray() {
-//   setArray(INITIAL_ARRAY);
-// }
+//   function resetArray() {
+//     setArray(INITIAL_ARRAY);
+//   }
 
-// function updateAtoN() {
-//   setArray((existingArray) => {
-//     return existingArray.map((letter) => {
-//       if (letter === "A") {
-//         return "N";
-//       } else {
-//         return letter;
-//       }
+//   function updateAtoN() {
+//     setArray((existingArray) => {
+//       return existingArray.map((letter) => {
+//         if (letter === "A") {
+//           return "N";
+//         } else {
+//           return letter;
+//         }
+//       });
 //     });
-//   });
-// }
+//   }
 
-// function addInputValue() {
+//   function addInputValue() {
 // const inputValue = prompt("Enter a letter");
 //     <input type="text" />;
 //     setArray((existingArray) => {
 //       return [value, ...existingArray];
+//     });
+//   }
+
+//   function addLetterToIndex(letter, index) {
+//     setArray((existingArray) => {
+//       return [
+//         ...existingArray.slice(0, index),
+//         letter,
+//         ...existingArray.slice(index),
+//       ];
 //     });
 //   }
 
@@ -80,6 +90,8 @@
 //       <button onClick={() => addInputValue(value)}>
 //         Add Input to Start of Array
 //       </button>
+//       <br />
+//       <button onClick={() => addLetterToIndex("Q", 1)}>Add Q at index 1</button>
 //       <br />
 //       <br />
 //       {array.join(", ")}
