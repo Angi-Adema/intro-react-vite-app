@@ -13,7 +13,7 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <button onClick={addItem}>Add Item</button>
       {/* .map() is converting the object into an array that React can use. Also the key has to be set inside the div tag and not inside the div itself as shown below.*/}
       <pre>
@@ -26,7 +26,7 @@ function App() {
           );
         })}
       </pre>
-    </div>
+    </>
   );
 }
 
