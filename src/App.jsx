@@ -1,108 +1,45 @@
-// import React from "react";
-// import { User } from "./User";
-// import { NameClass } from "./NameClass";
-// import { NameFunc } from "./NameFunc";
-// import { TodoListItem } from "./TodoListItem";
-import { useState } from "react";
-// import { Counter } from "./Counter";
+import { useEffect, useState } from "react";
 
-const INITIAL_ARRAY = ["A", "B", "C"];
+export default function App() {
+  const [users, setUsers] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
 
-function App() {
-  const [array, setArray] = useState(["A", "B", "C"]);
-  const [value, setValue] = useState("");
-
-  function removeFirst() {
-    setArray((existingArray) => {
-      return existingArray.slice(1);
-    });
-  }
-
-  function removeLetter() {
-    setArray((existingArray) => {
-      return existingArray.filter((letter) => letter !== "B");
-    });
-  }
-
-  function addLetterToStart() {
-    setArray((existingArray) => {
-      return ["P", ...existingArray];
-    });
-  }
-
-  function addLetterToEnd() {
-    setArray((existingArray) => {
-      return [...existingArray, "Z"];
-    });
-  }
-
-  function clearArray() {
-    setArray([]);
-  }
-
-  function resetArray() {
-    setArray(INITIAL_ARRAY);
-  }
-
-  function updateAtoN() {
-    setArray((existingArray) => {
-      return existingArray.map((letter) => {
-        if (letter === "A") {
-          return "N";
+  useEffect(() => {
+    setLoading(true);
+    setError(undefined);
+    // setUsers(undefined); Use this to reset the users if you want to do this.
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
         } else {
-          return letter;
+          return Promise.reject(res);
         }
+      })
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((e) => setError(e))
+      .finally(() => {
+        setLoading(false);
       });
-    });
-  }
+  }, []);
 
-  function addInputValue() {
-    // const inputValue = prompt("Enter a letter");
-    <input type="text" />;
-    setArray((existingArray) => {
-      return [value, ...existingArray];
-    });
-  }
+  let jsx;
 
-  function addLetterToIndex(letter, index) {
-    setArray((existingArray) => {
-      return [
-        ...existingArray.slice(0, index),
-        letter,
-        ...existingArray.slice(index),
-      ];
-    });
+  if (loading) {
+    jsx = <h2>Loading...</h2>;
+  } else if (error != null) {
+    jsx = <h2>Error!</h2>;
+  } else {
+    jsx = JSON.stringify(users);
   }
 
   return (
     <div>
-      <button onClick={removeFirst}>Remove First Index</button>
-      <br />
-      <button onClick={removeLetter}>Remove B From Array</button>
-      <br />
-      <button onClick={addLetterToStart}>Add Letter to Start of Array</button>
-      <br />
-      <button onClick={addLetterToEnd}>Add Letter to End of Array</button>
-      <br />
-      <button onClick={clearArray}>Clear the Array</button>
-      <br />
-      <button onClick={resetArray}>Set Array to Initial Value</button>
-      <br />
-      <button onClick={updateAtoN}>Update All As to Ns</button>
-      <br />
-      <br />
-      <input value={value} onChange={(event) => setValue(event.target.value)} />
-      <br />
-      <button onClick={() => addInputValue(value)}>
-        Add Input to Start of Array
-      </button>
-      <br />
-      <button onClick={() => addLetterToIndex("Q", 1)}>Add Q at index 1</button>
-      <br />
-      <br />
-      {array.join(", ")}
+      <h1>Users</h1>
+      {jsx}
     </div>
   );
 }
-
-export default App;
