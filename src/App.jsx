@@ -1,45 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function App() {
-  const [users, setUsers] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+function App() {
+  const [items, setItems] = useState([
+    { id: crypto.randomUUID(), name: "Item 1" },
+    { id: crypto.randomUUID(), name: "Item 2" },
+  ]);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(undefined);
-    // setUsers(undefined); Use this to reset the users if you want to do this.
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        } else {
-          return Promise.reject(res);
-        }
-      })
-      .then((data) => {
-        setUsers(data);
-      })
-      .catch((e) => setError(e))
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  let jsx;
-
-  if (loading) {
-    jsx = <h2>Loading...</h2>;
-  } else if (error != null) {
-    jsx = <h2>Error!</h2>;
-  } else {
-    jsx = JSON.stringify(users);
+  function addItem() {
+    setItems((currentItems) => {
+      return [...currentItems, { id: crypto.randomUUID(), name: "New Item" }];
+    });
   }
 
   return (
     <div>
-      <h1>Users</h1>
-      {jsx}
+      <button onClick={addItem}>Add Item</button>
+      {/* .map() is converting the object into an array that React can use. Also the key has to be set inside the div tag and not inside the div itself as shown below.*/}
+      <pre>
+        {items.map((item) => {
+          return (
+            <div key={item.id}>
+              {item.name}
+              <input type="text" />
+            </div>
+          );
+        })}
+      </pre>
     </div>
   );
 }
+
+export default App;
