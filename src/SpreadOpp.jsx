@@ -34,7 +34,7 @@
 //             return (
 //               <User
 //                 key={user.id}
-//                 {...user}     // Use the spread opperator rather than list out all of the items we want from the data.
+//                 {...user}     // Use the spread operator rather than list out all of the items we want from the data.
 // name={user.name}
 // email={user.email}
 // phone={user.phone}
