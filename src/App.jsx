@@ -1,9 +1,7 @@
 import { FormGroup } from "./FormGroup";
 import ReactSelect from "react-select";
-import { useRef, useState } from "react";
 import "./styles.css";
-import { checkCountry, checkEmail, checkPassword } from "./validators";
-import { useForm } from "react-hook-form";
+import { useForm, useController } from "react-hook-form";
 
 const COUNTRY_OPTIONS = [
   { label: "United States", value: "US" },
@@ -16,11 +14,14 @@ function App() {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
-  const countryRef = useRef();
-
-  const [countryErrors, setCountryErrors] = useState([]);
+  const { field: countryField } = useController({
+    name: "country",
+    control,
+    rules: { required: { value: true, message: "Required" } },
+  });
 
   function onSubmit(data) {
     console.log(data);
@@ -78,7 +79,7 @@ function App() {
           })}
         />
       </FormGroup>
-      <FormGroup errors={countryErrors}>
+      <FormGroup errorMessage={errors?.country?.message}>
         <label className="label" htmlFor="country">
           Country
         </label>
@@ -86,8 +87,8 @@ function App() {
           isClearable
           classNamePrefix="react-select"
           id="country"
-          ref={countryRef}
           options={COUNTRY_OPTIONS}
+          {...countryField}
         />
       </FormGroup>
       <button className="btn" type="submit">
