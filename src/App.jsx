@@ -1,9 +1,9 @@
 import { FormGroup } from "./FormGroup";
 import ReactSelect from "react-select";
-import { useRef, useState } from "react";
+// import { useRef, useState } from "react";
 import "./styles.css";
-import { checkCountry, checkEmail, checkPassword } from "./validators";
-import { useForm } from "react-hook-form";
+// import { checkCountry, checkEmail, checkPassword } from "./validators";
+import { useForm, useController } from "react-hook-form";
 
 const COUNTRY_OPTIONS = [
   { label: "United States", value: "US" },
@@ -16,14 +16,24 @@ function App() {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
   // const emailRef = useRef();
   // const passwordRef = useRef();
-  const countryRef = useRef();
+  // const countryRef = useRef();
+  // console.log(countryRef);
 
   // const [emailErrors, setEmailErrors] = useState([]);
   // const [passwordErrors, setPasswordErrors] = useState([]);
-  const [countryErrors, setCountryErrors] = useState([]);
+  // const [countryErrors, setCountryErrors] = useState([]);
+
+  const { field: countryField } = useController({
+    name: "country",
+    control,
+    rules: {
+      required: { value: true, message: "Country selection is required" },
+    },
+  });
 
   function onSubmit(data) {
     // e.preventDefault();  The default prevention is now handled behind the scenes by the handleSubmit function from react-hook-form.
@@ -76,6 +86,7 @@ function App() {
           className="input"
           type="password"
           id="password"
+          // ref={passwordRef}
           {...register("password", {
             required: { value: true, message: "Password is required" },
             minLength: {
@@ -102,7 +113,7 @@ function App() {
           })}
         />
       </FormGroup>
-      <FormGroup errors={countryErrors}>
+      <FormGroup errorMessage={errors?.country?.message}>
         <label className="label" htmlFor="country">
           Country
         </label>
@@ -110,8 +121,9 @@ function App() {
           isClearable
           classNamePrefix="react-select"
           id="country"
-          ref={countryRef}
           options={COUNTRY_OPTIONS}
+          // ref={countryRef}
+          {...countryField}
         />
       </FormGroup>
       <button className="btn" type="submit">
