@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
+import { Child } from "./Child";
+
+export const ThemeContext = createContext();
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -13,24 +16,12 @@ export default function App() {
   }, [isDarkMode]);
 
   return (
-    <>
-      <button
-        style={{
-          background: isDarkMode ? "white" : "#333",
-          color: isDarkMode ? "#333" : "white",
-          border: "none",
-          padding: ".5em",
-          borderRadius: ".25em",
-          cursor: "pointer",
-        }}
-        onClick={toggleTheme}
-      >
-        Toggle Theme
-      </button>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+      <Child />
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
         quibusdam.
       </p>
-    </>
+    </ThemeContext.Provider>
   );
 }
