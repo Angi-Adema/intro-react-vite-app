@@ -1,27 +1,18 @@
-import { useEffect, useState, createContext } from "react";
-import { Child } from "./Child";
-
-export const ThemeContext = createContext();
+import { useState } from "react";
+import { SampleCounter } from "./sampleCounter";
 
 export default function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [count, setCount] = useState(0);
 
-  function toggleTheme() {
-    setIsDarkMode((d) => !d);
+  function changeCount(amount) {
+    setCount((c) => c + amount);
   }
 
-  useEffect(() => {
-    document.body.style.background = isDarkMode ? "#333" : "white";
-    document.body.style.color = isDarkMode ? "white" : "#333";
-  }, [isDarkMode]);
+  function reset() {
+    setCount(0);
+  }
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
-      <Child />
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-        quibusdam.
-      </p>
-    </ThemeContext.Provider>
+    <SampleCounter count={count} changeCount={changeCount} reset={reset} />
   );
 }

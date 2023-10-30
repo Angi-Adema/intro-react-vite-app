@@ -1,13 +1,10 @@
-import { useState } from "react";
-
-export function Counter() {
-  const [count, setCount] = useState(0);
-
+export function SampleCounter({ count, changeCount, reset }) {
   return (
     <>
-      <button onClick={() => setCount((c) => c - 1)}>-</button>
+      <button onClick={() => changeCount(-1)}>-</button>
       {count}
-      <button onClick={() => setCount((c) => c + 1)}>+</button>
+      <button onClick={() => changeCount(+1)}>+</button>
+      <button onClick={reset}>Reset</button>
     </>
   );
 }
