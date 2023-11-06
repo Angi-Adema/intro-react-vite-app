@@ -1,3 +1,10 @@
+import { Navbar } from "../Navbar";
+
 export function Home() {
-  return <h1>Home</h1>;
+  return (
+    <>
+      <Navbar />
+      <h1>Home</h1>
+    </>
+  );
 }

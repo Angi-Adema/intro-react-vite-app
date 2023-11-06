@@ -1,3 +1,10 @@
+import { Navbar } from "../Navbar";
+
 export function Store() {
-  return <h1>Store</h1>;
+  return (
+    <>
+      <Navbar />
+      <h1>Store</h1>
+    </>
+  );
 }
