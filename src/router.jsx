@@ -20,8 +20,7 @@ export const router = createBrowserRouter([
         element: <TeamNavLayout />,
         children: [
           { index: true, element: <Team /> },
-          { path: "joe", element: <TeamMember name="joe" /> },
-          { path: "sally", element: <TeamMember name="sally" /> },
+          { path: ":memberId", element: <TeamMember /> },
         ],
       },
     ],

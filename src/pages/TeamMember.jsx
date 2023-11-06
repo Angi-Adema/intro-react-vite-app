@@ -1,3 +1,9 @@
-export function TeamMember({ name }) {
-  return <h1>Team Member - {name}</h1>;
+import { useParams } from "react-router-dom";
+import teamMembers from "../teamMembers.json";
+
+export function TeamMember() {
+  const { memberId } = useParams();
+  const member = teamMembers.find((m) => m.id === memberId);
+
+  return <h1>Team Member - {member.name}</h1>;
 }
