@@ -16,5 +16,22 @@ export default function App() {
       component = <Store />;
       break;
   }
-  return component;
+  return (
+    <>
+      <nav>
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/store">Store</a>
+          </li>
+        </ul>
+      </nav>
+      {component}
+    </>
+  );
 }
