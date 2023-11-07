@@ -6,6 +6,7 @@ import { Team } from "./pages/Team";
 import { TeamMember } from "./pages/TeamMember";
 import { Navbar } from "./Navbar";
 import { TeamNav } from "./TeamNav";
+import { NewTeamMember } from "./pages/NewTeamMember";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <Team /> },
           { path: ":memberId", element: <TeamMember /> },
+          { path: "new", element: <NewTeamMember /> },
         ],
       },
     ],

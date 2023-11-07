@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import teamMembers from "./teamMembers.json";
+import newTeamMember from "./pages/NewTeamMember";
 
 export function TeamNav() {
   return (
@@ -26,6 +27,9 @@ export function TeamNav() {
             .. Path
           </Link>
         </li> */}
+        <li>
+          <Link to="new">New Member</Link>
+        </li>
       </ul>
     </nav>
   );
