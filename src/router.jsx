@@ -1,4 +1,10 @@
-import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  Navigate,
+  redirect,
+  useNavigation,
+} from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Store } from "./pages/Store";
@@ -24,13 +30,26 @@ export const router = createBrowserRouter([
 
         // The loader will load the data for us without having to use any useEffects, etc. Cleans up the code.
         loader: ({ request: { signal } }) => {
-          return fetch("https://jsonplaceholder.typicode.com/users", {
+          return fetch("https://jsonplaceholder.typicode.com/users?_limit=2", {
+            // Can limit only 2 results or leave it as is to get all the results.
             signal,
           });
         },
         children: [
           { index: true, element: <Team /> },
-          { path: ":memberId", element: <TeamMember /> },
+          {
+            path: ":memberId",
+            loader: ({ params, request: { signal } }) => {
+              return fetch(
+                `https://jsonplaceholder.typicode.com/users/${params.memberId}, { signal }`
+              ).then((res) => {
+                if (res.status === 200) return res.json();
+
+                return redirect("/team"); // If the user searches for a team member that does not exist, this just routes them back to the team page.
+              });
+            },
+            element: <TeamMember />,
+          },
           { path: "new", element: <NewTeamMember /> },
         ],
       },
@@ -39,6 +58,9 @@ export const router = createBrowserRouter([
 ]);
 
 function NavLayout() {
+  const { state } = useNavigation();
+  state === "loading" ? <h1>Loading...</h1> : <Outlet />;
+
   return (
     <>
       <Navbar />

@@ -8,7 +8,7 @@ export function TeamNav() {
       <ul>
         {teamMembers.map((member) => (
           <li key={member.id}>
-            <Link to={member.id}>Team - {member.name}</Link>
+            <Link to={member.id.toString()}>Team - {member.name}</Link>
           </li>
         ))}
         {/* <li> */}
