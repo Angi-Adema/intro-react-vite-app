@@ -21,6 +21,13 @@ export const router = createBrowserRouter([
       {
         path: "/team",
         element: <TeamNavLayout />,
+
+        // The loader will load the data for us without having to use any useEffects, etc. Cleans up the code.
+        loader: ({ request: { signal } }) => {
+          return fetch("https://jsonplaceholder.typicode.com/users", {
+            signal,
+          });
+        },
         children: [
           { index: true, element: <Team /> },
           { path: ":memberId", element: <TeamMember /> },

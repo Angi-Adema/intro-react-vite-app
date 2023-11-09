@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import teamMembers from "../teamMembers.json";
+// import teamMembers from "../teamMembers.json";
 
 export function TeamMember() {
   const { memberId } = useParams();
